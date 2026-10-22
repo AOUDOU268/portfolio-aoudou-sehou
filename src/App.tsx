@@ -12,6 +12,7 @@ import { Parcours } from './components/sections/Parcours';
 import { Certifications } from './components/sections/Certifications';
 import { QuantaDynamic } from './components/sections/QuantaDynamic';
 import { Contact } from './components/sections/Contact';
+import { LanguageProvider } from './context/LanguageContext';
 
 export function App() {
   const { isDark, toggleTheme } = useTheme();
@@ -19,9 +20,10 @@ export function App() {
   const activeSection = useScrollSpy(sectionIds, 150);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-surface-dark text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
-      <SkipLink />
-      <Navbar activeSection={activeSection} isDark={isDark} toggleTheme={toggleTheme} />
+    <LanguageProvider>
+      <div className="min-h-screen bg-white dark:bg-surface-dark text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+        <SkipLink />
+        <Navbar activeSection={activeSection} isDark={isDark} toggleTheme={toggleTheme} />
 
       <main id="main-content" className="flex-grow">
         <Hero />
@@ -35,7 +37,8 @@ export function App() {
       </main>
 
       <Footer />
-    </div>
+      </div>
+    </LanguageProvider>
   );
 }
 
