@@ -26,6 +26,7 @@ export const translations: Translations = {
   'btn.cv_short': { fr: 'Mon CV', en: 'My CV' },
   'btn.cv_soon': { fr: 'Mon CV (bientôt)', en: 'My CV (soon)' },
   'btn.contact': { fr: 'Me contacter', en: 'Contact me' },
+  'btn.contact_short': { fr: 'Contact', en: 'Contact' },
   'theme.light': { fr: 'Activer le mode clair', en: 'Switch to light mode' },
   'theme.dark': { fr: 'Activer le mode sombre', en: 'Switch to dark mode' },
   'lang.toggle': { fr: 'Passer en anglais', en: 'Switch to French' },

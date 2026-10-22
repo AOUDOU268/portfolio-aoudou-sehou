@@ -20,7 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200/90 dark:border-slate-800 transition-colors">
-      <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-20 py-3 gap-2">
           {/* Identité personnelle AOUDOU SEHOU — Photo plus grande et Nom STRICTEMENT horizontal */}
           <a
@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
 
           {/* Navigation principale Desktop parfaitement alignée et dynamique */}
           <nav
-            className="hidden lg:flex items-center p-1 rounded-full bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-xs backdrop-blur-md mx-1 xl:mx-3"
+            className="hidden lg:flex items-center p-1 rounded-full bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-xs backdrop-blur-md mx-1"
             aria-label="Navigation principale"
           >
             <div className="flex items-center gap-0.5">
@@ -57,8 +57,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
                 const isActive = activeSection === item.id;
                 const label = item.id === 'quanta' ? (
                   <>
-                    <span className="xl:hidden">QUANTA</span>
-                    <span className="hidden xl:inline">{t('nav.quanta')}</span>
+                    <span className="2xl:hidden">QUANTA</span>
+                    <span className="hidden 2xl:inline">{t('nav.quanta')}</span>
                   </>
                 ) : (
                   t(`nav.${item.id}`)
@@ -67,11 +67,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
                   <a
                     key={item.id}
                     href={item.href}
-                    className={`relative inline-flex items-center justify-center px-2 xl:px-3 py-1.5 rounded-full text-[11px] xl:text-xs font-medium whitespace-nowrap transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
-                      isActive
-                        ? 'text-brand-700 dark:text-blue-400 font-semibold bg-white dark:bg-slate-800 shadow-xs border border-slate-200/80 dark:border-slate-700/80 scale-[1.02]'
-                        : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60'
-                    }`}
+                    className={`relative inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-full text-[11px] xl:text-[11.5px] 2xl:text-xs font-medium whitespace-nowrap transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${isActive
+                      ? 'text-brand-700 dark:text-blue-400 font-semibold bg-white dark:bg-slate-800 shadow-xs border border-slate-200/80 dark:border-slate-700/80 scale-[1.02]'
+                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60'
+                      }`}
                   >
                     <span>{label}</span>
                     {isActive && (
@@ -122,15 +121,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
               )}
             </div>
 
-            {/* Bouton Contact */}
-            <div className="hidden md:block">
+            {/* Bouton Contact garanti 100% visible */}
+            <div className="hidden md:block shrink-0">
               <a
                 href="#contact"
-                className="h-9 px-3 xl:px-3.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold whitespace-nowrap inline-flex items-center gap-1.5 shadow-xs transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                className="h-9 px-3 xl:px-3.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold whitespace-nowrap inline-flex items-center gap-1.5 shadow-xs transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shrink-0"
               >
                 <Mail className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden xl:inline">{t('btn.contact')}</span>
-                <span className="xl:hidden">Contact</span>
+                <span className="hidden 2xl:inline">{t('btn.contact')}</span>
+                <span className="2xl:hidden">{t('btn.contact_short')}</span>
               </a>
             </div>
 
@@ -164,11 +163,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
                   key={item.id}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-brand-700 dark:text-blue-400 bg-blue-50/90 dark:bg-blue-950/60 font-semibold border-l-4 border-brand-600 dark:border-blue-400 pl-3'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900'
-                  }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
+                    ? 'text-brand-700 dark:text-blue-400 bg-blue-50/90 dark:bg-blue-950/60 font-semibold border-l-4 border-brand-600 dark:border-blue-400 pl-3'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900'
+                    }`}
                 >
                   <span>{label}</span>
                   {isActive && (
