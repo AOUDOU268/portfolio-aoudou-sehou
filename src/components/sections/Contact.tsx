@@ -17,7 +17,7 @@ import {
   ShieldAlert,
   Loader2,
 } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../common/SocialIcons';
+import { GithubIcon, LinkedinIcon, FacebookIcon } from '../common/SocialIcons';
 import { profileData } from '../../data/profile';
 
 interface FormState {
@@ -252,26 +252,57 @@ export const Contact: React.FC = () => {
                 </a>
               </div>
 
-              {/* Réseaux professionnels conditionnels */}
+              {/* Réseaux et profils professionnels */}
               <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
                 <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
-                  Réseaux professionnels (à compléter)
+                  Réseaux & profils officiels
                 </p>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-500 dark:text-slate-400">
+                  <a
+                    href="https://github.com/AOUDOU268"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors group"
+                  >
                     <span className="flex items-center gap-2">
                       <GithubIcon className="w-3.5 h-3.5" />
-                      <span>GitHub</span>
+                      <span className="font-medium">GitHub</span>
                     </span>
-                    <span className="text-[10px] font-medium text-slate-400 italic">À officialiser</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-500 dark:text-slate-400">
+                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 group-hover:text-brand-600 dark:group-hover:text-blue-400">
+                      <span>@AOUDOU268</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/aoudou-sehou-7b8020440"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors group"
+                  >
                     <span className="flex items-center gap-2">
                       <LinkedinIcon className="w-3.5 h-3.5" />
-                      <span>LinkedIn</span>
+                      <span className="font-medium">LinkedIn</span>
                     </span>
-                    <span className="text-[10px] font-medium text-slate-400 italic">À officialiser</span>
-                  </div>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 group-hover:text-brand-600 dark:group-hover:text-blue-400">
+                      <span>in/aoudou-sehou</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </a>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100091392117097"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors group"
+                  >
+                    <span className="flex items-center gap-2">
+                      <FacebookIcon className="w-3.5 h-3.5" />
+                      <span className="font-medium">Facebook</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 group-hover:text-brand-600 dark:group-hover:text-blue-400">
+                      <span>Aoudou Sehou</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </a>
                 </div>
               </div>
             </Card>

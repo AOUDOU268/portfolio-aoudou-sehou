@@ -83,17 +83,24 @@ export const profileData: ProfileData = {
   socials: [
     {
       name: 'GitHub',
-      url: 'https://github.com',
+      url: 'https://github.com/AOUDOU268',
       icon: 'Github',
-      isAvailable: false,
-      handle: 'Profil officiel (à compléter)'
+      isAvailable: true,
+      handle: 'AOUDOU268'
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com',
+      url: 'https://www.linkedin.com/in/aoudou-sehou-7b8020440',
       icon: 'Linkedin',
-      isAvailable: false,
-      handle: 'Profil professionnel (à compléter)'
+      isAvailable: true,
+      handle: 'aoudou-sehou'
+    },
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/profile.php?id=100091392117097',
+      icon: 'Facebook',
+      isAvailable: true,
+      handle: 'Aoudou Sehou'
     },
     {
       name: 'Email Professionnel',

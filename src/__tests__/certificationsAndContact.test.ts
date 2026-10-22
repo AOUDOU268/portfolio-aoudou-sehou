@@ -78,11 +78,18 @@ describe('Vérification des coordonnées et validation du formulaire de contact'
     expect(mailto).toContain('%0A'); // saut de ligne encodé
   });
 
-  it('les réseaux professionnels non encore confirmés doivent être marqués comme non disponibles', () => {
+  it('les réseaux professionnels officiels (GitHub, LinkedIn, Facebook) doivent être configurés et disponibles', () => {
     const github = profileData.socials.find((s) => s.name === 'GitHub');
     const linkedin = profileData.socials.find((s) => s.name === 'LinkedIn');
+    const facebook = profileData.socials.find((s) => s.name === 'Facebook');
 
-    expect(github?.isAvailable).toBe(false);
-    expect(linkedin?.isAvailable).toBe(false);
+    expect(github?.isAvailable).toBe(true);
+    expect(github?.url).toBe('https://github.com/AOUDOU268');
+
+    expect(linkedin?.isAvailable).toBe(true);
+    expect(linkedin?.url).toBe('https://www.linkedin.com/in/aoudou-sehou-7b8020440');
+
+    expect(facebook?.isAvailable).toBe(true);
+    expect(facebook?.url).toBe('https://www.facebook.com/profile.php?id=100091392117097');
   });
 });

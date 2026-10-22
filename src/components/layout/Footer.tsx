@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUp, Mail } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../common/SocialIcons';
+import { GithubIcon, LinkedinIcon, FacebookIcon } from '../common/SocialIcons';
 import { Container } from '../common/Container';
 import { profileData } from '../../data/profile';
 import { navItems } from '../../data/navigation';
@@ -36,20 +36,33 @@ export const Footer: React.FC = () => {
               >
                 <Mail className="w-4 h-4" />
               </a>
-              <span
-                title="Profil GitHub officiel à officialiser"
-                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-600 cursor-not-allowed"
-                aria-label="GitHub à officialiser"
+              <a
+                href="https://github.com/AOUDOU268"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                aria-label="Profil GitHub d'AOUDOU SEHOU"
               >
                 <GithubIcon className="w-4 h-4" />
-              </span>
-              <span
-                title="Profil LinkedIn officiel à officialiser"
-                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-600 cursor-not-allowed"
-                aria-label="LinkedIn à officialiser"
+              </a>
+              <a
+                href="https://www.linkedin.com/in/aoudou-sehou-7b8020440"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                aria-label="Profil LinkedIn d'AOUDOU SEHOU"
               >
                 <LinkedinIcon className="w-4 h-4" />
-              </span>
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=100091392117097"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                aria-label="Profil Facebook d'AOUDOU SEHOU"
+              >
+                <FacebookIcon className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
