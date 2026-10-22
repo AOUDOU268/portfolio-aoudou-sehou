@@ -1,0 +1,18 @@
+{
+  "name": "AOUDOU SEHOU — Ingénieur Logiciel",
+  "short_name": "AOUDOU SEHOU",
+  "description": "Portfolio professionnel d'Aoudou Sehou, ingénieur en génie logiciel diplômé de l'ENSPM (2026).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
