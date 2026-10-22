@@ -5,4 +5,4 @@ Allow: /
 Disallow: /assets/
 
 # Sitemap
-Sitemap: https://aoudousehou.vercel.app/sitemap.xml
+Sitemap: https://portfolio-aoudou-sehou.vercel.app/sitemap.xml
