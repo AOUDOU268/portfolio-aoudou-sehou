@@ -22,9 +22,9 @@ export const translations: Translations = {
 
   // Header & Identity
   'identity.role': { fr: 'Ingénieur en Génie Logiciel', en: 'Software Engineer' },
-  'btn.cv': { fr: 'Télécharger CV', en: 'Download CV' },
-  'btn.cv_short': { fr: 'CV (PDF)', en: 'CV (PDF)' },
-  'btn.cv_soon': { fr: 'CV (bientôt disponible)', en: 'CV (coming soon)' },
+  'btn.cv': { fr: 'Mon CV', en: 'My CV' },
+  'btn.cv_short': { fr: 'Mon CV', en: 'My CV' },
+  'btn.cv_soon': { fr: 'Mon CV (bientôt)', en: 'My CV (soon)' },
   'btn.contact': { fr: 'Me contacter', en: 'Contact me' },
   'theme.light': { fr: 'Activer le mode clair', en: 'Switch to light mode' },
   'theme.dark': { fr: 'Activer le mode sombre', en: 'Switch to dark mode' },

@@ -86,40 +86,38 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
             </div>
           </nav>
 
-          {/* Actions & Boutons parfaitement harmonisés (hauteur uniforme h-9) */}
-          <div className="flex items-center gap-1.5 xl:gap-2 shrink-0">
-            {/* Bouton de bascule de langue FR / EN */}
+          {/* Actions & Boutons parfaitement harmonisés */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+            {/* Bouton de bascule de langue FR / EN sans bordure */}
             <LanguageToggle />
 
-            {/* Bouton de bascule de thème clair / sombre */}
+            {/* Bouton de bascule de thème clair / sombre sans bordure */}
             <ThemeToggle
               isDark={isDark}
               toggleTheme={toggleTheme}
-              className="h-9 w-9 p-0 inline-flex items-center justify-center rounded-lg"
             />
 
-            {/* Bouton Télécharger CV */}
+            {/* Bouton Mon CV */}
             <div className="hidden sm:block">
               {isCvAvailable ? (
                 <a
                   href={cvPath}
                   download="CV_AOUDOU_SEHOU.pdf"
-                  className="h-9 px-2.5 xl:px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-1.5 shadow-xs transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                  className="h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-1.5 shadow-xs transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
                   title="Télécharger mon CV (PDF)"
                 >
                   <Download className="w-3.5 h-3.5 text-brand-600 dark:text-blue-400 shrink-0" />
-                  <span className="hidden xl:inline">{t('btn.cv')}</span>
-                  <span className="xl:hidden">{t('btn.cv_short')}</span>
+                  <span>{t('btn.cv')}</span>
                 </a>
               ) : (
                 <button
                   type="button"
                   disabled
-                  className="h-9 px-2.5 xl:px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-500 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-1.5 opacity-60 cursor-not-allowed"
+                  className="h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-500 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-1.5 opacity-60 cursor-not-allowed"
                   title="Fichier CV disponible sous peu"
                 >
                   <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>{t('btn.cv_short')}</span>
+                  <span>{t('btn.cv')}</span>
                 </button>
               )}
             </div>
