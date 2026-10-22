@@ -46,24 +46,35 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
             </div>
           </a>
 
-          {/* Navigation principale Desktop */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Navigation principale">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
-              return (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                    isActive
-                      ? 'text-brand-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/50 font-semibold'
-                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/60'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
+          {/* Navigation principale Desktop parfaitement alignée et dynamique */}
+          <nav
+            className="hidden lg:flex items-center p-1 rounded-full bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-xs backdrop-blur-md"
+            aria-label="Navigation principale"
+          >
+            <div className="flex items-center gap-0.5 xl:gap-1">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    className={`relative inline-flex items-center justify-center px-2.5 xl:px-3 py-1.5 rounded-full text-[11.5px] xl:text-xs font-medium whitespace-nowrap transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
+                      isActive
+                        ? 'text-brand-700 dark:text-blue-400 font-semibold bg-white dark:bg-slate-800 shadow-xs border border-slate-200/80 dark:border-slate-700/80 scale-[1.02]'
+                        : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span
+                        className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-3.5 h-0.5 rounded-full bg-brand-600 dark:bg-blue-400 shadow-[0_0_8px_rgba(37,99,235,0.7)]"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </a>
+                );
+              })}
+            </div>
           </nav>
 
           {/* Actions & Téléchargement CV */}
@@ -145,13 +156,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isDark, toggleThe
                   key={item.id}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? 'text-brand-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 font-semibold'
+                      ? 'text-brand-700 dark:text-blue-400 bg-blue-50/90 dark:bg-blue-950/60 font-semibold border-l-4 border-brand-600 dark:border-blue-400 pl-3'
                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900'
                   }`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-600 dark:bg-blue-400 animate-pulse" aria-hidden="true" />
+                  )}
                 </a>
               );
             })}

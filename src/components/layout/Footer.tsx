@@ -100,7 +100,6 @@ export const Footer: React.FC = () => {
         <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 dark:text-slate-500">
           <p>© {new Date().getFullYear()} {profileData.fullName}. Tous droits réservés.</p>
           <div className="flex items-center gap-5">
-            <span className="font-mono text-[11px]">React · TypeScript · Vite · Tailwind</span>
             <button
               onClick={scrollToTop}
               className="flex items-center gap-1.5 hover:text-brand-700 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
