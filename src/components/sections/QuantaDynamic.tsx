@@ -4,10 +4,8 @@ import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Code2, Cpu, Sparkles, GraduationCap, ArrowRight } from 'lucide-react';
-import { profileData } from '../../data/profile';
+import { useLanguage } from '../../context/LanguageContext';
 import quantaLogoDark from '../../assets/quanta/logo_dark.jpg';
-
-
 
 const pillarIcons: Record<string, React.ReactNode> = {
   'Code2': <Code2 className="w-5 h-5" />,
@@ -17,13 +15,15 @@ const pillarIcons: Record<string, React.ReactNode> = {
 };
 
 export const QuantaDynamic: React.FC = () => {
+  const { t, profile, language } = useLanguage();
+
   return (
     <section id="quanta" className="py-20 sm:py-24">
       <Container>
         <SectionHeader
-          badgeText="Initiative entrepreneuriale"
-          title="QUANTA Dynamic"
-          subtitle={profileData.venture.tagline}
+          badgeText={t('quanta.badge')}
+          title={t('quanta.title')}
+          subtitle={profile.venture.tagline}
         />
 
         {/* Bannière officielle QUANTA Dynamic */}
@@ -39,14 +39,14 @@ export const QuantaDynamic: React.FC = () => {
                 <div className="flex justify-center md:justify-start mb-2">
                   <img
                     src={quantaLogoDark}
-                    alt="QUANTA Dynamic — Logo officiel"
+                    alt={language === 'fr' ? "QUANTA Dynamic — Logo officiel" : "QUANTA Dynamic — Official Logo"}
                     className="h-10 sm:h-12 object-contain"
                     style={{ maxWidth: 280 }}
                   />
                 </div>
 
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-                  {profileData.venture.description}
+                  {profile.venture.description}
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-1">
@@ -58,7 +58,7 @@ export const QuantaDynamic: React.FC = () => {
                     icon={<ArrowRight className="w-4 h-4" />}
                     iconPosition="right"
                   >
-                    Proposer un partenariat
+                    {t('quanta.partner_btn')}
                   </Button>
                 </div>
               </div>
@@ -68,7 +68,7 @@ export const QuantaDynamic: React.FC = () => {
 
         {/* Quatre piliers */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {profileData.venture.pillars.map((pillar, i) => (
+          {profile.venture.pillars.map((pillar, i) => (
             <Card key={i} className="flex flex-col">
               <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-brand-700 dark:text-blue-400 w-fit mb-4">
                 {pillarIcons[pillar.icon] ?? <Code2 className="w-5 h-5" />}
@@ -88,13 +88,13 @@ export const QuantaDynamic: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
             <div className="space-y-1.5">
               <p className="text-[11px] font-bold uppercase tracking-wider text-brand-700 dark:text-blue-400">
-                Focus R&D · QUANTA Core
+                {t('quanta.core_focus')}
               </p>
               <h4 className="text-base font-bold text-slate-900 dark:text-white">
-                Compression de Fichiers Sans Perte — Sélection Adaptative
+                {t('quanta.core_title')}
               </h4>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-                Exploration de l'analyse entropique temps-réel pour sélectionner dynamiquement la stratégie de codage optimale. Architecture pensée pour des contraintes edge computing.
+                {t('quanta.core_desc')}
               </p>
             </div>
             <div className="shrink-0">
@@ -106,7 +106,7 @@ export const QuantaDynamic: React.FC = () => {
                 icon={<ArrowRight className="w-4 h-4" />}
                 iconPosition="right"
               >
-                Collaborer sur ce sujet
+                {t('quanta.collab_btn')}
               </Button>
             </div>
           </div>

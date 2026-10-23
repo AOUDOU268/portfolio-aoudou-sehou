@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '../common/Container';
 import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
-import { skillGroups } from '../../data/skills';
+import { useLanguage } from '../../context/LanguageContext';
 import { Globe, Server, Smartphone, Cpu, Container as DockerIcon, Database, Check } from 'lucide-react';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -15,17 +15,19 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export const Skills: React.FC = () => {
+  const { t, skills } = useLanguage();
+
   return (
     <section id="skills" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/40 border-y border-slate-200/80 dark:border-slate-800/60">
       <Container>
         <SectionHeader
-          badgeText="Compétences"
-          title="Expertises Techniques Confirmées"
-          subtitle="Compétences organisées par domaines d'ingénierie réels. Aucun pourcentage factice ni niveau arbitraire."
+          badgeText={t('skills.badge')}
+          title={t('skills.title')}
+          subtitle={t('skills.subtitle')}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {skillGroups.map(group => (
+          {skills.map(group => (
             <Card key={group.id} className="flex flex-col h-full hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
               {/* En-tête de catégorie */}
               <div className="flex items-center gap-3.5 mb-3.5">
@@ -37,7 +39,7 @@ export const Skills: React.FC = () => {
                     {group.title}
                   </h3>
                   <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
-                    {group.skills.length} compétences confirmées
+                    {group.skills.length} {t('skills.confirmed_count')}
                   </span>
                 </div>
               </div>

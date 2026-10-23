@@ -2,6 +2,7 @@ import React from 'react';
 import type { Project } from '../../types/project';
 import { ProjectStatusBadge } from './ProjectStatusBadge';
 import { ArrowRight, Code2 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ProjectCardProps {
   project: Project;
@@ -9,6 +10,8 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails }) => {
+  const { t, language } = useLanguage();
+
   return (
     <article
       role="button"
@@ -20,7 +23,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           onOpenDetails(project);
         }
       }}
-      aria-label={`Ouvrir les détails complets du projet ${project.title}`}
+      aria-label={language === 'fr' ? `Ouvrir les détails complets du projet ${project.title}` : `Open full details for project ${project.title}`}
       className="group flex flex-col h-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-card hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
     >
       <div className="p-6 flex flex-col h-full gap-4">
@@ -51,7 +54,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
         {/* Problème & Solution en aperçu concis */}
         <div className="text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800 space-y-1">
           <p className="line-clamp-1">
-            <strong className="text-slate-700 dark:text-slate-300">Défi :</strong> {project.problemSolved}
+            <strong className="text-slate-700 dark:text-slate-300">{t('projects.card_challenge')}</strong> {project.problemSolved}
           </p>
         </div>
 
@@ -80,7 +83,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           </span>
 
           <span className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-blue-400 group-hover:gap-1.5 transition-all duration-150">
-            Détails
+            {t('projects.card_details')}
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </div>

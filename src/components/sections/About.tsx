@@ -3,16 +3,18 @@ import { Container } from '../common/Container';
 import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
 import { GraduationCap, Code2, Sparkles, Rocket, CheckCircle2, Award } from 'lucide-react';
-import { profileData } from '../../data/profile';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const About: React.FC = () => {
+  const { t, profile, language } = useLanguage();
+
   return (
     <section id="about" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/50 border-y border-slate-200/80 dark:border-slate-800/60">
       <Container>
         <SectionHeader
-          badgeText="À propos"
-          title="Formation & Vision d'Ingénieur"
-          subtitle="Un cursus d'excellence débuté à l'IUT de Ngaoundéré (Génie Informatique) et couronné à l'ENSPM Maroua (Diplôme d'Ingénieur en Génie Logiciel, Juillet 2026)."
+          badgeText={t('about.badge')}
+          title={t('about.title')}
+          subtitle={t('about.subtitle')}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
@@ -29,32 +31,32 @@ export const About: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-brand-700 dark:text-blue-400">
-                      Diplôme d'Ingénieur
+                      {t('about.engineering_degree_badge')}
                     </span>
                     <span className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
                       2023 — 2026
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-                    {profileData.education.degree}
+                    {profile.education.degree}
                   </h3>
                   <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">
-                    {profileData.education.institutionFull} ({profileData.education.institution})
+                    {profile.education.institutionFull} ({profile.education.institution})
                   </p>
                 </div>
               </div>
 
               <div className="p-3 rounded-lg bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 mb-3">
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  Filière Informatique et Télécommunications — <strong className="text-brand-700 dark:text-blue-400 font-semibold">Option Génie Logiciel</strong>
+                  {t('about.field_prefix')}<strong className="text-brand-700 dark:text-blue-400 font-semibold">{t('about.option_se')}</strong>
                 </p>
                 <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">
-                  Promotion Juillet 2026
+                  {t('about.promotion_2026')}
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                {profileData.education.highlights.slice(0, 2).map((h, i) => (
+                {profile.education.highlights.slice(0, 2).map((h, i) => (
                   <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{h}</span>
@@ -64,7 +66,7 @@ export const About: React.FC = () => {
             </Card>
 
             {/* Cursus initial IUT de Ngaoundéré */}
-            {profileData.previousEducation && (
+            {profile.previousEducation && (
               <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="flex items-center gap-3.5 mb-3">
                   <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0">
@@ -73,23 +75,23 @@ export const About: React.FC = () => {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                        Formation Initiale
+                        {t('about.initial_training_badge')}
                       </span>
                       <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700">
-                        {profileData.previousEducation.period}
+                        {profile.previousEducation.period}
                       </span>
                     </div>
                     <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
-                      {profileData.previousEducation.degree} — {profileData.previousEducation.field}
+                      {profile.previousEducation.degree} — {profile.previousEducation.field}
                     </h4>
                     <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                      {profileData.previousEducation.institutionFull}
+                      {profile.previousEducation.institutionFull}
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-1.5 pt-1">
-                  {profileData.previousEducation.highlights.map((h, i) => (
+                  {profile.previousEducation.highlights.map((h, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                       <CheckCircle2 className="w-3.5 h-3.5 text-brand-600 dark:text-blue-400 shrink-0 mt-0.5" />
                       <span className="leading-relaxed">{h}</span>
@@ -112,10 +114,14 @@ export const About: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                    Ingénierie Logicielle & Architectures Modernes
+                    {t('about.pillar1_title')}
                   </h4>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                    Application rigoureuse de la <strong>Clean Architecture</strong>, des principes <strong>SOLID</strong> et du découplage système. Je veille à produire du code testable, documenté et maintenable, tant côté backend (Spring Boot) que sur les interfaces clientes (Angular, Flutter, React).
+                    {language === 'fr' ? (
+                      <>Application rigoureuse de la <strong>Clean Architecture</strong>, des principes <strong>SOLID</strong> et du découplage système. Je veille à produire du code testable, documenté et maintenable, tant côté backend (Spring Boot) que sur les interfaces clientes (Angular, Flutter, React).</>
+                    ) : (
+                      <>Rigorous implementation of <strong>Clean Architecture</strong>, <strong>SOLID</strong> principles, and system decoupling. I ensure testable, documented, and maintainable code across backends (Spring Boot) and client apps (Angular, Flutter, React).</>
+                    )}
                   </p>
                 </div>
               </div>
@@ -129,10 +135,14 @@ export const About: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                    Intelligence Artificielle & Automatisation
+                    {t('about.pillar2_title')}
                   </h4>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                    Exploration d’algorithmes intelligents, analyse d'entropie (projet de recherche QUANTA Core) et intégration d'outils d'automatisation des flux pour réduire les tâches manuelles et optimiser les processus opérationnels.
+                    {language === 'fr' ? (
+                      <>Exploration d’algorithmes intelligents, analyse d'entropie (projet de recherche QUANTA Core) et intégration d'outils d'automatisation des flux pour réduire les tâches manuelles et optimiser les processus opérationnels.</>
+                    ) : (
+                      <>Exploration of intelligent algorithms, entropy analysis (QUANTA Core research) and workflow automation integration to eliminate manual friction and streamline operational processes.</>
+                    )}
                   </p>
                 </div>
               </div>
@@ -146,10 +156,14 @@ export const About: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                    Entrepreneuriat Technologique — QUANTA Dynamic
+                    {t('about.pillar3_title')}
                   </h4>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                    Volonté affirmée de transformer les avancées technologiques en <strong>produits viables</strong> à fort impact. À travers l’initiative QUANTA Dynamic, je pilote la conception de solutions logicielles utiles pour nos écosystèmes.
+                    {language === 'fr' ? (
+                      <>Volonté affirmée de transformer les avancées technologiques en <strong>produits viables</strong> à fort impact. À travers l’initiative QUANTA Dynamic, je pilote la conception de solutions logicielles utiles pour nos écosystèmes.</>
+                    ) : (
+                      <>Strong drive to turn technological advancements into <strong>viable, high-impact products</strong>. Through the QUANTA Dynamic initiative, I direct the design of purposeful software for real ecosystems.</>
+                    )}
                   </p>
                 </div>
               </div>

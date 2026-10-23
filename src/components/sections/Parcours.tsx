@@ -2,8 +2,7 @@ import React from 'react';
 import { Container } from '../common/Container';
 import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
-import { timelineItems } from '../../data/timeline';
-import { profileData } from '../../data/profile';
+import { useLanguage } from '../../context/LanguageContext';
 import { GraduationCap, Briefcase, FolderGit2, HelpCircle, Calendar, MapPin, CheckCircle2, Printer } from 'lucide-react';
 import type { TimelineItemType } from '../../types/timeline';
 
@@ -22,6 +21,8 @@ const badgeClasses: Record<TimelineItemType, string> = {
 };
 
 export const Parcours: React.FC = () => {
+  const { t, timeline, profile } = useLanguage();
+
   const handlePrint = () => {
     window.print();
   };
@@ -32,9 +33,9 @@ export const Parcours: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div className="flex-1">
             <SectionHeader
-              badgeText="Parcours"
-              title="Formation & Expériences Vérifiées"
-              subtitle="Une trajectoire polytechnique claire et des jalons professionnels concrets, sans extrapolation."
+              badgeText={t('parcours.badge')}
+              title={t('parcours.title')}
+              subtitle={t('parcours.subtitle')}
             />
           </div>
 
@@ -44,20 +45,20 @@ export const Parcours: React.FC = () => {
               onClick={handlePrint}
               type="button"
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-600 dark:hover:text-blue-400 transition-colors shadow-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
-              aria-label="Imprimer le parcours synthétique"
+              aria-label={t('parcours.print_cv')}
             >
               <Printer className="w-4 h-4 text-brand-600 dark:text-blue-400" />
-              <span>Imprimer le parcours</span>
+              <span>{t('parcours.print_cv')}</span>
             </button>
           </div>
         </div>
 
         {/* En-tête uniquement visible à l'impression */}
         <div className="hidden print:block mb-6 pb-4 border-b border-slate-300">
-          <h2 className="text-2xl font-bold text-slate-900">{profileData.fullName}</h2>
-          <p className="text-sm text-slate-700 font-medium">{profileData.title}</p>
+          <h2 className="text-2xl font-bold text-slate-900">{profile.fullName}</h2>
+          <p className="text-sm text-slate-700 font-medium">{profile.title}</p>
           <p className="text-xs text-slate-600 mt-1">
-            Email : {profileData.contact.email} | Formation : ENSPM (2026) & IUT de Ngaoundéré (2023)
+            Email : {profile.contact.email} | Formation : ENSPM (2026) & IUT de Ngaoundéré (2023)
           </p>
         </div>
 
@@ -66,7 +67,7 @@ export const Parcours: React.FC = () => {
           <div className="absolute left-4 sm:left-8 top-3 bottom-3 w-0.5 bg-slate-200 dark:bg-slate-800 print:left-4 print:bg-slate-300" />
 
           <div className="space-y-8 sm:space-y-10 print:space-y-6">
-            {timelineItems.map((item) => {
+            {timeline.map((item) => {
               const isPending = item.type === 'pending';
 
               return (

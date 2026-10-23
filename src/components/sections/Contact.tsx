@@ -18,7 +18,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, FacebookIcon } from '../common/SocialIcons';
-import { profileData } from '../../data/profile';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface FormState {
   name: string;
@@ -35,6 +35,7 @@ interface FormErrors {
 }
 
 export const Contact: React.FC = () => {
+  const { t, profile, language } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState<FormErrors>({});
@@ -52,20 +53,20 @@ export const Contact: React.FC = () => {
   const validateField = (field: keyof FormState, value: string): string | undefined => {
     switch (field) {
       case 'name':
-        if (!value.trim()) return 'Le nom ou votre organisation est requis.';
-        if (value.trim().length < 2) return 'Le nom doit comporter au moins 2 caractères.';
+        if (!value.trim()) return t('contact.validation_name_req');
+        if (value.trim().length < 2) return t('contact.validation_name_len');
         return undefined;
       case 'email':
-        if (!value.trim()) return 'L’adresse email de contact est requise.';
-        if (!emailRegex.test(value.trim())) return 'Veuillez saisir une adresse email valide.';
+        if (!value.trim()) return t('contact.validation_email_req');
+        if (!emailRegex.test(value.trim())) return t('contact.validation_email_invalid');
         return undefined;
       case 'subject':
-        if (!value.trim()) return 'L’objet du message est requis.';
-        if (value.trim().length < 3) return 'L’objet doit comporter au moins 3 caractères.';
+        if (!value.trim()) return t('contact.validation_subject_req');
+        if (value.trim().length < 3) return t('contact.validation_subject_len');
         return undefined;
       case 'message':
-        if (!value.trim()) return 'Le corps du message ne peut pas être vide.';
-        if (value.trim().length < 10) return 'Le message doit comporter au moins 10 caractères.';
+        if (!value.trim()) return t('contact.validation_msg_req');
+        if (value.trim().length < 10) return t('contact.validation_msg_len');
         return undefined;
       default:
         return undefined;
@@ -100,7 +101,7 @@ export const Contact: React.FC = () => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(profileData.contact.email);
+    navigator.clipboard.writeText(profile.contact.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -110,14 +111,19 @@ export const Contact: React.FC = () => {
     const s = encodeURIComponent(
       form.subject.trim()
         ? `[Portfolio] ${form.subject.trim()}`
-        : `[Contact Portfolio] Prise de contact`
+        : language === 'fr'
+        ? `[Contact Portfolio] Prise de contact`
+        : `[Portfolio Contact] New Inquiry`
     );
     const b = encodeURIComponent(
-      `Nom / Organisation : ${form.name.trim() || 'Non précisé'}\n` +
-      `Email de réponse : ${form.email.trim() || 'Non précisé'}\n\n` +
-      `Message :\n${form.message.trim() || '(Aucun message rédigé)'}`
+      (language === 'fr' ? 'Nom / Organisation : ' : 'Name / Organization: ') +
+      `${form.name.trim() || (language === 'fr' ? 'Non précisé' : 'Not specified')}\n` +
+      (language === 'fr' ? 'Email de réponse : ' : 'Reply Email: ') +
+      `${form.email.trim() || (language === 'fr' ? 'Non précisé' : 'Not specified')}\n\n` +
+      (language === 'fr' ? 'Message :\n' : 'Message:\n') +
+      `${form.message.trim() || (language === 'fr' ? '(Aucun message rédigé)' : '(No message text)')}`
     );
-    return `mailto:${profileData.contact.email}?subject=${s}&body=${b}`;
+    return `mailto:${profile.contact.email}?subject=${s}&body=${b}`;
   };
 
   const handleOpenMailto = (e: React.MouseEvent) => {
@@ -181,9 +187,9 @@ export const Contact: React.FC = () => {
     <section id="contact" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/60">
       <Container>
         <SectionHeader
-          badgeText="Contact"
-          title="Travaillons Ensemble"
-          subtitle="Recruteurs, collaborateurs ou partenaires technologiques — échangeons sur vos opportunités et projets."
+          badgeText={t('contact.badge')}
+          title={t('contact.title')}
+          subtitle={t('contact.subtitle')}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start max-w-5xl mx-auto">
@@ -192,36 +198,36 @@ export const Contact: React.FC = () => {
           <div className="lg:col-span-2 space-y-5">
             <Card>
               <Badge variant="success" size="sm" className="mb-3">
-                {profileData.availability.label}
+                {profile.availability.label}
               </Badge>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
-                {profileData.availability.details}
+                {profile.availability.details}
               </p>
 
               {/* Bloc email officiel */}
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 mb-4">
                 <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
-                  Adresse électronique directe
+                  {language === 'fr' ? 'Adresse électronique directe' : 'Direct email address'}
                 </p>
                 <div className="flex items-center justify-between gap-2">
                   <a
-                    href={`mailto:${profileData.contact.email}`}
+                    href={`mailto:${profile.contact.email}`}
                     className="text-sm font-semibold text-brand-600 dark:text-blue-400 hover:underline break-all"
                   >
-                    {profileData.contact.email}
+                    {profile.contact.email}
                   </a>
                   <button
                     onClick={handleCopy}
                     type="button"
                     className="p-1.5 rounded-md text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shrink-0"
-                    aria-label="Copier l'adresse email professionnelle"
+                    aria-label={t('contact.copy_email')}
                   >
                     {copied ? <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
                 {copied && (
                   <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mt-1 flex items-center gap-1">
-                    <Check className="w-3 h-3" /> Adresse copiée dans le presse-papier !
+                    <Check className="w-3 h-3" /> {t('contact.copied')}
                   </p>
                 )}
               </div>
@@ -230,32 +236,32 @@ export const Contact: React.FC = () => {
               <div className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 mb-5">
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-3.5 h-3.5 text-brand-600 dark:text-blue-400 shrink-0" />
-                  <span>{profileData.contact.responseTime}</span>
+                  <span>{profile.contact.responseTime}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <MapPin className="w-3.5 h-3.5 text-brand-600 dark:text-blue-400 shrink-0" />
-                  <span>{profileData.contact.location}</span>
+                  <span>{profile.contact.location}</span>
                 </div>
               </div>
 
               {/* Bouton de contact rapide mailto */}
               <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
                 <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                  Prise de contact rapide
+                  {language === 'fr' ? 'Prise de contact rapide' : 'Quick direct contact'}
                 </p>
                 <a
-                  href={`mailto:${profileData.contact.email}?subject=Prise%20de%20contact%20-%20AOUDOU%20SEHOU`}
+                  href={`mailto:${profile.contact.email}?subject=${encodeURIComponent(language === 'fr' ? 'Prise de contact - AOUDOU SEHOU' : 'Contact - AOUDOU SEHOU')}`}
                   className="w-full inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
                 >
                   <Mail className="w-4 h-4" />
-                  <span>M'écrire par email direct</span>
+                  <span>{t('contact.direct_btn')}</span>
                 </a>
               </div>
 
               {/* Réseaux et profils professionnels */}
               <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
                 <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
-                  Réseaux & profils officiels
+                  {t('contact.social_title')}
                 </p>
                 <div className="space-y-2">
                   <a
@@ -313,21 +319,23 @@ export const Contact: React.FC = () => {
             <Card>
               <div className="flex items-start justify-between gap-3 mb-1">
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                  Envoyer un message
+                  {t('contact.send_card_title')}
                 </h3>
                 {isServiceConfigured ? (
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
-                    <CheckCircle2 className="w-3 h-3" /> Service actif
+                    <CheckCircle2 className="w-3 h-3" /> {language === 'fr' ? 'Service actif' : 'Service Active'}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">
-                    <ShieldAlert className="w-3 h-3" /> Mode direct mailto
+                    <ShieldAlert className="w-3 h-3" /> {language === 'fr' ? 'Mode direct mailto' : 'Direct mailto mode'}
                   </span>
                 )}
               </div>
 
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
-                Remplissez les informations ci-dessous. Sans service externe configuré, le message s’ouvrira directement dans votre client de messagerie habituel.
+                {language === 'fr'
+                  ? 'Remplissez les informations ci-dessous. Sans service externe configuré, le message s’ouvrira directement dans votre client de messagerie habituel.'
+                  : 'Fill in the information below. Without an external service configured, your message will open directly in your default email client.'}
               </p>
 
               {/* Bannière d'avertissement honnête si Formspree n'est pas configuré */}
@@ -335,9 +343,11 @@ export const Contact: React.FC = () => {
                 <div className="mb-6 p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-2.5">
                   <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-bold">Envoi automatique API désactivé</p>
+                    <p className="font-bold">{language === 'fr' ? 'Envoi automatique API désactivé' : 'Automatic API delivery disabled'}</p>
                     <p className="mt-0.5 text-[11px] leading-relaxed text-amber-800 dark:text-amber-300">
-                      Aucun faux message de succès ne sera affiché. La variable <code className="font-mono font-semibold bg-amber-100 dark:bg-amber-900/60 px-1 rounded">VITE_FORMSPREE_FORM_ID</code> n'est pas définie. Utilisez le bouton d'envoi ci-dessous pour transférer directement votre saisie dans votre logiciel d'email.
+                      {language === 'fr'
+                        ? <>Aucun faux message de succès ne sera affiché. La variable <code className="font-mono font-semibold bg-amber-100 dark:bg-amber-900/60 px-1 rounded">VITE_FORMSPREE_FORM_ID</code> n'est pas définie. Utilisez le bouton d'envoi ci-dessous pour transférer directement votre saisie dans votre logiciel d'email.</>
+                        : <>No false success message will be shown. The <code className="font-mono font-semibold bg-amber-100 dark:bg-amber-900/60 px-1 rounded">VITE_FORMSPREE_FORM_ID</code> variable is not set. Use the send button below to transfer your inputs directly into your email software.</>}
                     </p>
                   </div>
                 </div>
@@ -352,16 +362,16 @@ export const Contact: React.FC = () => {
                 >
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-sm">Message transmis avec succès !</h4>
+                    <h4 className="font-bold text-sm">{t('contact.success_title')}</h4>
                     <p className="mt-1 leading-relaxed text-emerald-800 dark:text-emerald-300">
-                      Votre demande a bien été envoyée à AOUDOU SEHOU. Une réponse vous parviendra dans les meilleurs délais.
+                      {t('contact.success_desc')}
                     </p>
                     <button
                       type="button"
                       onClick={() => setSubmitStatus('idle')}
                       className="mt-3 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 underline hover:no-underline"
                     >
-                      Envoyer un autre message
+                      {t('contact.send_another')}
                     </button>
                   </div>
                 </div>
@@ -375,9 +385,9 @@ export const Contact: React.FC = () => {
                 >
                   <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-sm">Échec de transmission</h4>
+                    <h4 className="font-bold text-sm">{language === 'fr' ? 'Échec de transmission' : 'Transmission Failed'}</h4>
                     <p className="mt-1 leading-relaxed text-red-800 dark:text-red-300">
-                      {serverErrorMessage || 'Une erreur est survenue lors de l’envoi. Vous pouvez basculer sur l’envoi direct par email.'}
+                      {serverErrorMessage || (language === 'fr' ? 'Une erreur est survenue lors de l’envoi. Vous pouvez basculer sur l’envoi direct par email.' : 'An error occurred during submission. You can switch to direct email.')}
                     </p>
                     <button
                       type="button"
@@ -385,7 +395,7 @@ export const Contact: React.FC = () => {
                       className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-600 text-white hover:bg-red-700 transition-colors"
                     >
                       <Mail className="w-3.5 h-3.5" />
-                      Ouvrir dans ma messagerie avec ce message
+                      {language === 'fr' ? 'Ouvrir dans ma messagerie avec ce message' : 'Open in email client with this message'}
                     </button>
                   </div>
                 </div>
@@ -397,7 +407,7 @@ export const Contact: React.FC = () => {
                   {/* Champ Nom */}
                   <div>
                     <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                      Nom / Organisation <span className="text-red-500">*</span>
+                      {t('contact.name_label')} <span className="text-red-500">*</span>
                     </label>
                     <input
                       id="contact-name"
@@ -408,7 +418,7 @@ export const Contact: React.FC = () => {
                       onBlur={() => handleBlur('name')}
                       aria-invalid={Boolean(touched.name && errors.name)}
                       aria-describedby={touched.name && errors.name ? 'contact-name-error' : undefined}
-                      placeholder="Jean Dupont ou Entreprise"
+                      placeholder={language === 'fr' ? 'Jean Dupont ou Entreprise' : 'John Doe or Company'}
                       className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
                         touched.name && errors.name
                           ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
@@ -425,7 +435,7 @@ export const Contact: React.FC = () => {
                   {/* Champ Email */}
                   <div>
                     <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                      Adresse email <span className="text-red-500">*</span>
+                      {t('contact.email_label')} <span className="text-red-500">*</span>
                     </label>
                     <input
                       id="contact-email"
@@ -454,7 +464,7 @@ export const Contact: React.FC = () => {
                 {/* Champ Sujet */}
                 <div>
                   <label htmlFor="contact-subject" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Objet de votre demande <span className="text-red-500">*</span>
+                    {t('contact.subject_label')} <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="contact-subject"
@@ -465,7 +475,7 @@ export const Contact: React.FC = () => {
                     onBlur={() => handleBlur('subject')}
                     aria-invalid={Boolean(touched.subject && errors.subject)}
                     aria-describedby={touched.subject && errors.subject ? 'contact-subject-error' : undefined}
-                    placeholder="Ex : Recrutement ingénieur / Mission de conseil / Collaboration"
+                    placeholder={language === 'fr' ? 'Ex : Recrutement ingénieur / Mission de conseil / Collaboration' : 'E.g.: Software Engineering Role / Consulting / Collaboration'}
                     className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
                       touched.subject && errors.subject
                         ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
@@ -482,7 +492,7 @@ export const Contact: React.FC = () => {
                 {/* Champ Message */}
                 <div>
                   <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Message <span className="text-red-500">*</span>
+                    {t('contact.message_label')} <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="contact-message"
@@ -493,7 +503,7 @@ export const Contact: React.FC = () => {
                     onBlur={() => handleBlur('message')}
                     aria-invalid={Boolean(touched.message && errors.message)}
                     aria-describedby={touched.message && errors.message ? 'contact-message-error' : undefined}
-                    placeholder="Décrivez vos besoins, le contexte de votre projet ou les compétences recherchées..."
+                    placeholder={language === 'fr' ? 'Décrivez vos besoins, le contexte de votre projet ou les compétences recherchées...' : 'Describe your project requirements, scope, or desired skills...'}
                     className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors resize-y min-h-[120px] ${
                       touched.message && errors.message
                         ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
@@ -519,7 +529,7 @@ export const Contact: React.FC = () => {
                       iconPosition="right"
                       className="font-semibold"
                     >
-                      {isSubmitting ? 'Envoi en cours...' : 'Envoyer via Formspree'}
+                      {isSubmitting ? t('contact.sending_btn') : t('contact.submit_btn')}
                     </Button>
                   ) : (
                     <button
@@ -527,7 +537,7 @@ export const Contact: React.FC = () => {
                       className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-700 text-white transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
                     >
                       <Mail className="w-4 h-4" />
-                      <span>Transférer vers ma messagerie (mailto)</span>
+                      <span>{language === 'fr' ? 'Transférer vers ma messagerie (mailto)' : 'Transfer to email client (mailto)'}</span>
                     </button>
                   )}
 
@@ -536,7 +546,7 @@ export const Contact: React.FC = () => {
                     className="inline-flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-blue-400 transition-colors py-2"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
-                    <span>Alternative mailto directe</span>
+                    <span>{language === 'fr' ? 'Alternative mailto directe' : 'Direct mailto alternative'}</span>
                   </a>
                 </div>
               </form>

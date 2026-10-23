@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { X, Info, ShieldCheck, Layers, GitFork, ExternalLink, AlertCircle, CheckCircle2, Clock, Lock, FlaskConical } from 'lucide-react';
 import type { Project } from '../../types/project';
 import { ProjectStatusBadge } from './ProjectStatusBadge';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ProjectDetailModalProps {
   project: Project | null;
@@ -12,6 +13,7 @@ interface ProjectDetailModalProps {
 export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen, onClose }) => {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isOpen) {
@@ -70,7 +72,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               ref={closeBtnRef}
               onClick={onClose}
               type="button"
-              aria-label="Fermer la fenêtre de détails"
+              aria-label={t('modal.close')}
               className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
             >
               <X className="w-5 h-5" />
@@ -85,7 +87,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900/50">
             <Info className="w-4 h-4 text-brand-600 dark:text-blue-400 shrink-0 mt-0.5" />
             <div className="text-xs">
-              <p className="font-semibold text-slate-900 dark:text-white mb-0.5">Statut de validation d'ingénierie</p>
+              <p className="font-semibold text-slate-900 dark:text-white mb-0.5">{t('modal.validation_title')}</p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{project.statusDescription}</p>
             </div>
           </div>
@@ -95,7 +97,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             <div className="flex items-center gap-2 mb-2">
               <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Le Problème à Résoudre
+                {t('modal.problem_title')}
               </h3>
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-amber-50/40 dark:bg-amber-950/20 p-4 rounded-xl border border-amber-200/60 dark:border-amber-900/40">
@@ -108,7 +110,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                La Solution & Valeur Ajoutée
+                {t('modal.solution_title')}
               </h3>
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-emerald-50/40 dark:bg-emerald-950/20 p-4 rounded-xl border border-emerald-200/60 dark:border-emerald-900/40">
@@ -121,7 +123,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             <div className="flex items-center gap-2 mb-3">
               <Layers className="w-4 h-4 text-brand-600 dark:text-blue-400" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Fonctionnalités Confirmées
+                {t('modal.features_title')}
               </h3>
             </div>
             <ul className="space-y-2">
@@ -140,7 +142,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               <div className="flex items-center gap-2 mb-2.5">
                 <Clock className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-                  Fonctionnalités Prévues (Feuille de route restante)
+                  {t('modal.roadmap_title')}
                 </h3>
               </div>
               <ul className="space-y-1.5">
@@ -160,7 +162,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               <div className="flex items-center gap-2 mb-2.5">
                 <Lock className="w-4 h-4 text-brand-600 dark:text-blue-400" />
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  Enjeux & Principes de Sécurité (Protection des données)
+                  {t('modal.security_title')}
                 </h3>
               </div>
               <ul className="space-y-1.5">
@@ -180,7 +182,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               <div className="flex items-center gap-2 mb-2.5">
                 <FlaskConical className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <h3 className="text-xs font-bold uppercase tracking-wider text-indigo-900 dark:text-indigo-300">
-                  Démarche Expérimentale & Périmètre R&D
+                  {t('modal.experimental_title')}
                 </h3>
               </div>
               <ul className="space-y-1.5">
@@ -199,7 +201,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             <div className="flex items-center gap-2 mb-2.5">
               <ShieldCheck className="w-4 h-4 text-brand-600 dark:text-blue-400" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Choix d'Architecture Logicielle
+                {t('modal.architecture_title')}
               </h3>
             </div>
             <ul className="space-y-2">
@@ -215,7 +217,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           {/* 8. Stack technique confirmée */}
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
-              Stack Technique Confirmée
+              {t('modal.stack_title')}
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {project.technologies.map((t) => (
@@ -235,7 +237,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="min-w-0">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-              Rôle d'Aoudou Sehou
+              {t('modal.role_title')}
             </p>
             <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
               {project.role}

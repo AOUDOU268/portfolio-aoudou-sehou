@@ -2,22 +2,8 @@ import React from 'react';
 import type { ProjectCategory } from '../../types/project';
 import { cn } from '../../utils/cn';
 import { Filter, Layers, X } from 'lucide-react';
-
+import { useLanguage } from '../../context/LanguageContext';
 import { keyTechnologies } from '../../data/projects';
-
-interface FilterOption {
-  id: ProjectCategory;
-  label: string;
-}
-
-const categoryOptions: FilterOption[] = [
-  { id: 'all', label: 'Tous les domaines' },
-  { id: 'web', label: 'Web & E-Commerce' },
-  { id: 'mobile', label: 'Mobile & LegalTech' },
-  { id: 'rd_systems', label: 'R&D & Compression' },
-  { id: 'fintech_iot', label: 'Fintech & QR' },
-  { id: 'entrepreneurship', label: 'Entrepreneuriat' },
-];
 
 interface ProjectFiltersProps {
   activeCategory: ProjectCategory;
@@ -38,6 +24,17 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   totalFiltered,
   totalCount,
 }) => {
+  const { t, language } = useLanguage();
+
+  const categoryOptions: { id: ProjectCategory; label: string }[] = [
+    { id: 'all', label: language === 'fr' ? 'Tous les domaines' : 'All Domains' },
+    { id: 'web', label: language === 'fr' ? 'Web & E-Commerce' : 'Web & E-Commerce' },
+    { id: 'mobile', label: language === 'fr' ? 'Mobile & LegalTech' : 'Mobile & LegalTech' },
+    { id: 'rd_systems', label: language === 'fr' ? 'R&D & Compression' : 'R&D & Compression' },
+    { id: 'fintech_iot', label: language === 'fr' ? 'Fintech & QR' : 'Fintech & QR' },
+    { id: 'entrepreneurship', label: language === 'fr' ? 'Entrepreneuriat' : 'Entrepreneurship' },
+  ];
+
   const isFiltered = activeCategory !== 'all' || selectedTech !== 'Toutes';
 
   return (
@@ -46,12 +43,12 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
           <Layers className="w-3.5 h-3.5 text-brand-600 dark:text-blue-400" />
-          <span>Domaines d'ingénierie</span>
+          <span>{t('projects.domains_title')}</span>
         </div>
         <div
           className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2"
           role="tablist"
-          aria-label="Filtrer les projets par domaine"
+          aria-label={language === 'fr' ? 'Filtrer les projets par domaine' : 'Filter projects by domain'}
         >
           {categoryOptions.map((option) => {
             const isActive = activeCategory === option.id;
@@ -80,7 +77,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       <div className="flex flex-col items-center pt-1">
         <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
           <Filter className="w-3.5 h-3.5 text-brand-600 dark:text-blue-400" />
-          <span>Filtrer par technologie</span>
+          <span>{t('projects.filter_tech_title')}</span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-1.5">
           {keyTechnologies.map((tech) => {
@@ -108,7 +105,11 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       {/* Compteur et bouton de réinitialisation si filtré */}
       <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-2 pt-1 border-t border-slate-100 dark:border-slate-800/80">
         <span>
-          Affichage de <strong className="text-slate-800 dark:text-slate-200">{totalFiltered}</strong> sur {totalCount} projets
+          {language === 'fr' ? (
+            <>Affichage de <strong className="text-slate-800 dark:text-slate-200">{totalFiltered}</strong> sur {totalCount} projets</>
+          ) : (
+            <>Showing <strong className="text-slate-800 dark:text-slate-200">{totalFiltered}</strong> of {totalCount} projects</>
+          )}
         </span>
 
         {isFiltered && (
@@ -118,7 +119,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
             className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-blue-400 hover:text-brand-700 dark:hover:text-blue-300 transition-colors"
           >
             <X className="w-3.5 h-3.5" />
-            Réinitialiser les filtres
+            {t('projects.reset_btn')}
           </button>
         )}
       </div>
