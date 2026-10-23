@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Container } from '../common/Container';
 import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { certificationsData, certificationCategories } from '../../data/certifications';
 import type { CertificationCategoryKey } from '../../types/certification';
 import { useLanguage } from '../../context/LanguageContext';
@@ -31,17 +32,19 @@ export const Certifications: React.FC = () => {
   };
 
   return (
-    <section id="certifications" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/40 border-y border-slate-200/80 dark:border-slate-800/60">
+    <section id="certifications" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/40 border-y border-slate-200/80 dark:border-slate-800/60 relative overflow-hidden">
       <Container>
-        <SectionHeader
-          badgeText={t('certifications.badge')}
-          title={t('certifications.title')}
-          subtitle={
-            language === 'fr'
-              ? `Un ensemble de ${certificationsData.length} certifications spécialisées délivrées sur Coursera, validant des compétences en architecture logicielle, développement web & mobile, IA, réseaux Cisco et systèmes.`
-              : `A verified portfolio of ${certificationsData.length} specialized certifications issued on Coursera, validating skills in software architecture, web & mobile engineering, AI, Cisco networking, and systems.`
-          }
-        />
+        <ScrollReveal animation="fade-up">
+          <SectionHeader
+            badgeText={t('certifications.badge')}
+            title={t('certifications.title')}
+            subtitle={
+              language === 'fr'
+                ? `Un ensemble de ${certificationsData.length} certifications spécialisées délivrées sur Coursera, validant des compétences en architecture logicielle, développement web & mobile, IA, réseaux Cisco et systèmes.`
+                : `A verified portfolio of ${certificationsData.length} specialized certifications issued on Coursera, validating skills in software architecture, web & mobile engineering, AI, Cisco networking, and systems.`
+            }
+          />
+        </ScrollReveal>
 
         {/* Note de transparence */}
         <div className="flex items-center gap-2.5 max-w-3xl mx-auto mb-10 p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
@@ -89,11 +92,11 @@ export const Certifications: React.FC = () => {
 
         {/* Grille des certifications */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCertifications.map((cert) => (
-            <Card
-              key={cert.id}
-              className="flex flex-col h-full border-slate-200/90 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
-            >
+          {filteredCertifications.map((cert, index) => (
+            <ScrollReveal key={cert.id} animation="fade-up" delay={Math.min(index * 50, 350)} className="h-full">
+              <Card
+                className="flex flex-col h-full card-hover hover:border-brand-500/40 dark:hover:border-blue-500/40"
+              >
               {/* En-tête */}
               <div className="flex items-start gap-3.5 mb-3.5">
                 <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/70 text-brand-600 dark:text-blue-400 shrink-0 border border-blue-100 dark:border-blue-900/60 shadow-sm">
@@ -142,8 +145,9 @@ export const Certifications: React.FC = () => {
                 </ul>
               </div>
             </Card>
-          ))}
-        </div>
+          </ScrollReveal>
+        ))}
+      </div>
       </Container>
     </section>
   );

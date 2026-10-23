@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUp, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, FacebookIcon } from '../common/SocialIcons';
 import { Container } from '../common/Container';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { useLanguage } from '../../context/LanguageContext';
 import { navItems } from '../../data/navigation';
 import profilePhoto from '../../assets/aoudou-sehou.png';
@@ -13,7 +14,8 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 pt-14 pb-10 transition-colors">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-slate-200 dark:border-slate-800/60">
+        <ScrollReveal animation="fade-up">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-slate-200 dark:border-slate-800/60">
 
           {/* Identité */}
           <div className="space-y-4">
@@ -32,7 +34,7 @@ export const Footer: React.FC = () => {
             <div className="flex items-center gap-2 pt-1">
               <a
                 href={`mailto:${profile.contact.email}?subject=Prise%20de%20contact%20-%20AOUDOU%20SEHOU`}
-                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 hover:-translate-y-0.5 transition-all duration-200"
                 aria-label={`Envoyer un email à ${profile.contact.email}`}
               >
                 <Mail className="w-4 h-4" />
@@ -41,7 +43,7 @@ export const Footer: React.FC = () => {
                 href="https://github.com/AOUDOU268"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 hover:-translate-y-0.5 transition-all duration-200"
                 aria-label="Profil GitHub d'AOUDOU SEHOU"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -95,22 +97,25 @@ export const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
 
         {/* Barre inférieure */}
-        <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 dark:text-slate-500">
-          <p>© {new Date().getFullYear()} {profile.fullName}. {t('footer.rights')}</p>
-          <div className="flex items-center gap-5">
-            <button
-              onClick={scrollToTop}
-              className="flex items-center gap-1.5 hover:text-brand-700 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
-              aria-label={t('footer.top')}
-            >
-              <ArrowUp className="w-3.5 h-3.5" />
-              <span>{t('footer.top')}</span>
-            </button>
+        <ScrollReveal animation="fade-up" delay={150}>
+          <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 dark:text-slate-500">
+            <p>© {new Date().getFullYear()} {profile.fullName}. {t('footer.rights')}</p>
+            <div className="flex items-center gap-5">
+              <button
+                onClick={scrollToTop}
+                className="flex items-center gap-1.5 hover:text-brand-700 dark:hover:text-blue-400 hover:-translate-y-1 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+                aria-label={t('footer.top')}
+              >
+                <ArrowUp className="w-3.5 h-3.5" />
+                <span>{t('footer.top')}</span>
+              </button>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </Container>
     </footer>
   );

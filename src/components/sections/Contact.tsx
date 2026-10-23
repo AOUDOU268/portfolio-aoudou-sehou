@@ -4,6 +4,7 @@ import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
+import { ScrollReveal } from '../common/ScrollReveal';
 import {
   Copy,
   Check,
@@ -112,8 +113,8 @@ export const Contact: React.FC = () => {
       form.subject.trim()
         ? `[Portfolio] ${form.subject.trim()}`
         : language === 'fr'
-        ? `[Contact Portfolio] Prise de contact`
-        : `[Portfolio Contact] New Inquiry`
+          ? `[Contact Portfolio] Prise de contact`
+          : `[Portfolio Contact] New Inquiry`
     );
     const b = encodeURIComponent(
       (language === 'fr' ? 'Nom / Organisation : ' : 'Name / Organization: ') +
@@ -184,19 +185,25 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/60">
+    <section id="contact" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/60 relative overflow-hidden">
+      {/* Orbes ambiants doux pour la section contact */}
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-brand-500/8 dark:bg-blue-600/10 blur-3xl pointer-events-none animate-float-slow" />
+      <div className="absolute bottom-0 -left-10 w-80 h-80 rounded-full bg-emerald-500/8 dark:bg-emerald-600/10 blur-3xl pointer-events-none animate-float-reverse" />
+
       <Container>
-        <SectionHeader
-          badgeText={t('contact.badge')}
-          title={t('contact.title')}
-          subtitle={t('contact.subtitle')}
-        />
+        <ScrollReveal animation="fade-up">
+          <SectionHeader
+            badgeText={t('contact.badge')}
+            title={t('contact.title')}
+            subtitle={t('contact.subtitle')}
+          />
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start max-w-5xl mx-auto">
 
           {/* Colonne 1 : Coordonnées et réseaux professionnels */}
-          <div className="lg:col-span-2 space-y-5">
-            <Card>
+          <ScrollReveal animation="fade-right" delay={100} className="lg:col-span-2 space-y-5">
+            <Card className="card-hover">
               <Badge variant="success" size="sm" className="mb-3">
                 {profile.availability.label}
               </Badge>
@@ -312,11 +319,11 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
             </Card>
-          </div>
+          </ScrollReveal>
 
           {/* Colonne 2 : Formulaire de contact sécurisé */}
-          <div className="lg:col-span-3">
-            <Card>
+          <ScrollReveal animation="fade-left" delay={150} className="lg:col-span-3">
+            <Card className="card-hover">
               <div className="flex items-start justify-between gap-3 mb-1">
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                   {t('contact.send_card_title')}
@@ -418,12 +425,11 @@ export const Contact: React.FC = () => {
                       onBlur={() => handleBlur('name')}
                       aria-invalid={Boolean(touched.name && errors.name)}
                       aria-describedby={touched.name && errors.name ? 'contact-name-error' : undefined}
-                      placeholder={language === 'fr' ? 'Jean Dupont ou Entreprise' : 'John Doe or Company'}
-                      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
-                        touched.name && errors.name
+                      placeholder={language === 'fr' ? 'Votre nom ou Organisation' : 'Your Name or Organization'}
+                      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${touched.name && errors.name
                           ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
                           : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:ring-brand-600'
-                      }`}
+                        }`}
                     />
                     {touched.name && errors.name && (
                       <p id="contact-name-error" role="alert" className="mt-1 text-[11px] text-red-600 dark:text-red-400 font-medium flex items-center gap-1">
@@ -447,11 +453,10 @@ export const Contact: React.FC = () => {
                       aria-invalid={Boolean(touched.email && errors.email)}
                       aria-describedby={touched.email && errors.email ? 'contact-email-error' : undefined}
                       placeholder="vous@domaine.com"
-                      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
-                        touched.email && errors.email
+                      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${touched.email && errors.email
                           ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
                           : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:ring-brand-600'
-                      }`}
+                        }`}
                     />
                     {touched.email && errors.email && (
                       <p id="contact-email-error" role="alert" className="mt-1 text-[11px] text-red-600 dark:text-red-400 font-medium flex items-center gap-1">
@@ -476,11 +481,10 @@ export const Contact: React.FC = () => {
                     aria-invalid={Boolean(touched.subject && errors.subject)}
                     aria-describedby={touched.subject && errors.subject ? 'contact-subject-error' : undefined}
                     placeholder={language === 'fr' ? 'Ex : Recrutement ingénieur / Mission de conseil / Collaboration' : 'E.g.: Software Engineering Role / Consulting / Collaboration'}
-                    className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
-                      touched.subject && errors.subject
+                    className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${touched.subject && errors.subject
                         ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
                         : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:ring-brand-600'
-                    }`}
+                      }`}
                   />
                   {touched.subject && errors.subject && (
                     <p id="contact-subject-error" role="alert" className="mt-1 text-[11px] text-red-600 dark:text-red-400 font-medium flex items-center gap-1">
@@ -504,11 +508,10 @@ export const Contact: React.FC = () => {
                     aria-invalid={Boolean(touched.message && errors.message)}
                     aria-describedby={touched.message && errors.message ? 'contact-message-error' : undefined}
                     placeholder={language === 'fr' ? 'Décrivez vos besoins, le contexte de votre projet ou les compétences recherchées...' : 'Describe your project requirements, scope, or desired skills...'}
-                    className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors resize-y min-h-[120px] ${
-                      touched.message && errors.message
+                    className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors resize-y min-h-[120px] ${touched.message && errors.message
                         ? 'border-red-500 focus:ring-red-500 bg-red-50/20 dark:bg-red-950/20'
                         : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:ring-brand-600'
-                    }`}
+                      }`}
                   />
                   {touched.message && errors.message && (
                     <p id="contact-message-error" role="alert" className="mt-1 text-[11px] text-red-600 dark:text-red-400 font-medium flex items-center gap-1">
@@ -551,7 +554,7 @@ export const Contact: React.FC = () => {
                 </div>
               </form>
             </Card>
-          </div>
+          </ScrollReveal>
 
         </div>
       </Container>

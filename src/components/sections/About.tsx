@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from '../common/Container';
 import { SectionHeader } from '../common/SectionHeader';
 import { Card } from '../common/Card';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { GraduationCap, Code2, Sparkles, Rocket, CheckCircle2, Award } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -9,21 +10,23 @@ export const About: React.FC = () => {
   const { t, profile, language } = useLanguage();
 
   return (
-    <section id="about" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/50 border-y border-slate-200/80 dark:border-slate-800/60">
+    <section id="about" className="py-20 sm:py-24 bg-surface-light-subtle dark:bg-slate-950/50 border-y border-slate-200/80 dark:border-slate-800/60 relative overflow-hidden">
       <Container>
-        <SectionHeader
-          badgeText={t('about.badge')}
-          title={t('about.title')}
-          subtitle={t('about.subtitle')}
-        />
+        <ScrollReveal animation="fade-up">
+          <SectionHeader
+            badgeText={t('about.badge')}
+            title={t('about.title')}
+            subtitle={t('about.subtitle')}
+          />
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
 
           {/* Bloc 1 : Formation Académique Officielle (ENSPM + IUT) */}
-          <div className="lg:col-span-6 flex flex-col space-y-4">
+          <ScrollReveal animation="fade-right" delay={100} className="lg:col-span-6 flex flex-col space-y-4">
             
             {/* Diplôme d'Ingénieur ENSPM */}
-            <Card className="border-brand-200/90 dark:border-blue-900/50 bg-gradient-to-br from-blue-50/50 via-white to-white dark:from-blue-950/20 dark:via-slate-900 dark:to-slate-900">
+            <Card className="border-brand-200/90 dark:border-blue-900/50 bg-gradient-to-br from-blue-50/50 via-white to-white dark:from-blue-950/20 dark:via-slate-900 dark:to-slate-900 card-hover">
               <div className="flex items-center gap-3.5 mb-4">
                 <div className="p-2.5 rounded-xl bg-brand-600 text-white shrink-0 shadow-sm">
                   <GraduationCap className="w-5 h-5" />
@@ -101,13 +104,13 @@ export const About: React.FC = () => {
               </Card>
             )}
 
-          </div>
+          </ScrollReveal>
 
           {/* Bloc 2 : Les trois centres d'intérêt majeurs */}
-          <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
+          <ScrollReveal animation="fade-left" delay={200} className="lg:col-span-6 flex flex-col justify-between space-y-4">
             
             {/* Centre 1 : Ingénierie logicielle */}
-            <Card className="flex-1">
+            <Card className="flex-1 card-hover">
               <div className="flex items-start gap-3.5">
                 <div className="p-2.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-brand-600 dark:text-blue-400 shrink-0">
                   <Code2 className="w-5 h-5" />
@@ -128,7 +131,7 @@ export const About: React.FC = () => {
             </Card>
 
             {/* Centre 2 : IA & Expérimentation */}
-            <Card className="flex-1">
+            <Card className="flex-1 card-hover">
               <div className="flex items-start gap-3.5">
                 <div className="p-2.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 shrink-0">
                   <Sparkles className="w-5 h-5" />
@@ -149,7 +152,7 @@ export const About: React.FC = () => {
             </Card>
 
             {/* Centre 3 : Entrepreneuriat technologique */}
-            <Card className="flex-1">
+            <Card className="flex-1 card-hover">
               <div className="flex items-start gap-3.5">
                 <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 shrink-0">
                   <Rocket className="w-5 h-5" />
@@ -169,7 +172,7 @@ export const About: React.FC = () => {
               </div>
             </Card>
 
-          </div>
+          </ScrollReveal>
 
         </div>
       </Container>

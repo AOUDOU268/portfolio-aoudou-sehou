@@ -8,6 +8,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { Project, ProjectCategory } from '../../types/project';
 import { Info, FolderSearch, RotateCcw } from 'lucide-react';
 import { Button } from '../common/Button';
+import { ScrollReveal } from '../common/ScrollReveal';
 
 export const Projects: React.FC = () => {
   const { t, projects, language } = useLanguage();
@@ -32,13 +33,15 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-20 sm:py-24">
+    <section id="projects" className="py-20 sm:py-24 relative overflow-hidden">
       <Container>
-        <SectionHeader
-          badgeText={t('projects.badge')}
-          title={t('projects.title')}
-          subtitle={t('projects.subtitle')}
-        />
+        <ScrollReveal animation="fade-up">
+          <SectionHeader
+            badgeText={t('projects.badge')}
+            title={t('projects.title')}
+            subtitle={t('projects.subtitle')}
+          />
+        </ScrollReveal>
 
         {/* Bandeau de transparence méthodologique */}
         <div className="flex items-center gap-2.5 max-w-2xl mx-auto mb-8 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
@@ -76,12 +79,13 @@ export const Projects: React.FC = () => {
         {/* Grille de projets ou État vide */}
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onOpenDetails={setSelectedProject}
-              />
+            {filteredProjects.map((project, index) => (
+              <ScrollReveal key={project.id} animation="fade-up" delay={Math.min(index * 75, 400)} className="h-full">
+                <ProjectCard
+                  project={project}
+                  onOpenDetails={setSelectedProject}
+                />
+              </ScrollReveal>
             ))}
           </div>
         ) : (

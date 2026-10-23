@@ -13,6 +13,7 @@ import { Certifications } from './components/sections/Certifications';
 import { QuantaDynamic } from './components/sections/QuantaDynamic';
 import { Contact } from './components/sections/Contact';
 import { LanguageProvider } from './context/LanguageContext';
+import { ScrollProgress } from './components/common/ScrollProgress';
 
 export function App() {
   const { isDark, toggleTheme } = useTheme();
@@ -21,7 +22,8 @@ export function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-white dark:bg-surface-dark text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+      <div className="min-h-screen bg-white dark:bg-surface-dark text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200 relative">
+        <ScrollProgress />
         <SkipLink />
         <Navbar activeSection={activeSection} isDark={isDark} toggleTheme={toggleTheme} />
 

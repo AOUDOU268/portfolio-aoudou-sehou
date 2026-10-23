@@ -16,19 +16,24 @@ export const Hero: React.FC = () => {
 
   return (
     <section id="hero" className="relative pt-28 sm:pt-32 pb-20 sm:pb-24 bg-white dark:bg-surface-dark overflow-hidden">
-      {/* Halo subtil d'arrière-plan sans saturation excessive */}
+      {/* Halos dynamiques et orbes ambiants animés */}
+      <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-brand-500/10 dark:bg-blue-600/15 blur-3xl pointer-events-none animate-float-slow" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 rounded-full bg-sky-400/10 dark:bg-indigo-600/15 blur-3xl pointer-events-none animate-float-reverse" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_60%_-10%,rgba(59,130,246,0.06),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_60%_-10%,rgba(59,130,246,0.08),transparent)] pointer-events-none" />
 
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center relative z-10">
 
           {/* Colonne gauche : Présentation et actions */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1">
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1 animate-fade-up">
 
             {/* Disponibilité & statut professionnel */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full shadow-xs hover:scale-105 transition-transform duration-200">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
                 {profile.availability.label}
               </span>
               <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -160,17 +165,20 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Colonne droite : Emplacement photo professionnelle avec fallback élégant */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
+          <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 animate-fade-down">
             <div className="relative w-full max-w-[320px] sm:max-w-[350px]">
               
+              {/* Halo d'aura dynamique respirant derrière la photo */}
+              <div className="absolute -inset-2 bg-gradient-to-tr from-brand-600/25 via-sky-500/20 to-indigo-600/25 rounded-3xl blur-xl animate-pulse-subtle -z-10" />
+
               {/* Bordure externe et ombre élégante */}
-              <div className="relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.12)] dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]">
+              <div className="relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700/80 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.6)] group">
                 
                 {!photoError ? (
                   <img
                     src={profilePhoto}
                     alt={`${profile.fullName} — ${profile.title}`}
-                    className="w-full object-cover object-top"
+                    className="w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     style={{ aspectRatio: '4/4.9' }}
                     onError={() => setPhotoError(true)}
                     loading="eager"
@@ -200,7 +208,7 @@ export const Hero: React.FC = () => {
                 )}
 
                 {/* Cartouche d'identification en bas de la photo */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950/90 via-slate-950/60 to-transparent px-4 pb-4 pt-12">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950/90 via-slate-950/60 to-transparent px-4 pb-4 pt-12 backdrop-blur-[1px]">
                   <p className="text-white font-bold text-sm tracking-tight">{profile.fullName}</p>
                   <p className="text-blue-300 text-[11px] font-medium tracking-wide mt-0.5">
                     {t('hero.software_engineer_enspm')}
@@ -208,9 +216,9 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
-              {/* Badges d'information flottants */}
-              <div className="absolute -top-3 -left-6 hidden sm:block">
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-dropdown px-3.5 py-2 flex items-center gap-2">
+              {/* Badges d'information flottants avec micro-animations */}
+              <div className="absolute -top-3 -left-6 hidden sm:block animate-float-slow">
+                <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl border border-slate-200 dark:border-slate-700 shadow-dropdown px-3.5 py-2 flex items-center gap-2 hover:scale-105 transition-transform duration-200">
                   <GraduationCap className="w-4 h-4 text-brand-600 dark:text-blue-400 shrink-0" />
                   <div>
                     <p className="text-[10px] font-bold text-slate-900 dark:text-white leading-tight">ENSPM Maroua</p>
@@ -219,8 +227,8 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
-              <div className="absolute -bottom-3 -right-6 hidden sm:block">
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-dropdown px-3 py-2 flex items-center gap-2">
+              <div className="absolute -bottom-3 -right-6 hidden sm:block animate-float-reverse">
+                <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl border border-slate-200 dark:border-slate-700 shadow-dropdown px-3 py-2 flex items-center gap-2 hover:scale-105 transition-transform duration-200">
                   <Badge variant="success" size="sm">{t('hero.active_venture')}</Badge>
                   <p className="text-[10px] font-bold text-slate-900 dark:text-white">QUANTA Dynamic</p>
                 </div>
